@@ -242,17 +242,17 @@ struct BigInteger sub(struct BigInteger num1, struct BigInteger num2){
 
 struct BigInteger mul(struct BigInteger num1, struct BigInteger num2){
     struct node* n1 = num1.head, * n2 = num2.head;
-    struct BigInteger num3 = initialize("0");  // Initialize with string "0"
+    struct BigInteger num3 = initialize("");  // Initialize with string "0"
     num3.length = 0;
     if (n1 == NULL || n2 == NULL) {
         return num3;
     }
-    struct BigInteger mid, result = initialize("0");  // Initialize result with "0"
+    struct BigInteger mid, result = initialize(""); 
     int carry = 0, product = 0, i = 0;
     while (n2 != NULL) {
         n1 = num1.head;
         carry = 0;
-        mid = initialize("0");  // Initialize mid with "0"
+        mid = initialize("");
         for (int j = 0; j < i; j++) {
             insert_tail(&mid, 0);
         }
@@ -279,72 +279,6 @@ struct BigInteger mul(struct BigInteger num1, struct BigInteger num2){
     }
     return result;
 }
-// struct BigInteger mul(struct BigInteger num1, struct BigInteger num2) {
-//     struct BigInteger result;
-//     result.head = NULL;
-//     result.sign = '+';
-//     result.length = 0;
-
-//     struct node* n1 = num1.head;
-//     struct node* n2 = num2.head;
-
-//     if (n1 == NULL || n2 == NULL) {
-//         return result;
-//     }
-
-//     int size = num1.length + num2.length;
-//     int* arr = (int*)malloc(size * sizeof(int));
-
-//     for (int i = 0; i < size; i++) {
-//         arr[i] = 0;
-//     }
-
-//     int carry = 0;
-
-//     int i = 0;
-//     while (n1 != NULL) {
-//         int digit1 = n1->data;
-//         n1 = n1->next;
-
-//         struct node* temp = n2;
-//         int j = 0;
-//         while (temp != NULL) {
-//             int digit2 = temp->data;
-//             int product = digit1 * digit2 + carry;
-//             carry = product / 10;
-//             arr[i + j] += product % 10;
-//             j++;
-//             temp = temp->next;
-//         }
-
-//         if (carry > 0) {
-//             arr[i + j] += carry;
-//             carry = 0;
-//         }
-
-//         i++;
-//     }
-
-//     int carry2 = 0;
-//     for (int k = 0; k < size; k++) {
-//         int sum = arr[k] + carry2;
-//         carry2 = sum / 10;
-//         result.head = insert(result.head, sum % 10);
-//     }
-
-//     if (carry2 > 0) {
-//         result.head = insert(result.head, carry2);
-//     }
-
-//     free(arr);
-
-//     if (num1.sign != num2.sign) {
-//         result.sign = '-';
-//     }
-
-//     result.length = length(result.head);
-//     return result;
-// }
 
 
 void freeL(struct BigInteger* num) {
