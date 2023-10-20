@@ -230,13 +230,14 @@ struct BigInteger sub(struct BigInteger num1, struct BigInteger num2){
         if (l1 != NULL) l1 = l1->next;
         if (l2 != NULL) l2 = l2->next;
     }
-
+    num3.head = reverse(num3.head);
     // Remove trailing zeros
     while (num3.head != NULL && num3.head->data == 0) {
         struct node* temp = num3.head;
         num3.head = num3.head->next;
         free(temp);
     }
+    num3.head = reverse(num3.head);
     return num3;
 }
 
@@ -280,7 +281,6 @@ struct BigInteger mul(struct BigInteger num1, struct BigInteger num2){
     return result;
 }
 
-
 void freeL(struct BigInteger* num) {
     struct node* itr = num->head;
     while (itr != NULL) {
@@ -293,8 +293,31 @@ void freeL(struct BigInteger* num) {
 }
 
 int main() {
-    struct BigInteger num1 = initialize("-1234");
-    struct BigInteger num2 = initialize("5678");
+    struct BigInteger num0 = initialize("12");
+    struct BigInteger num01 = initialize("-5");
+    
+    struct BigInteger sum0 = add(num0, num01);
+    struct BigInteger diff0 = sub(num0, num01);
+    struct BigInteger mul0 = mul(num0, num01);
+
+    printf("Case 0:\n");
+    printf("First number: ");
+    display(num0);
+    printf("\n");
+    printf("Second number: ");
+    display(num01);
+    printf("\n");
+    printf("Addition: ");
+    display(sum0);
+    printf("\n");
+    printf("Subtraction: ");
+    display(diff0);
+    printf("\n");
+    printf("Multiplication: ");
+    display(mul0);
+    printf("\n\n");
+    struct BigInteger num1 = initialize("1234");
+    struct BigInteger num2 = initialize("-5678");
     
     struct BigInteger sum1 = add(num1, num2);
     struct BigInteger diff1 = sub(num1, num2);
