@@ -1,19 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-// Define a structure for a node in a linked list
-struct node{
-    int data;
-    struct node* next;
-};
-
-// Define a structure for a BigInteger
-struct BigInteger{
-    struct node* head;
-    long int length;
-    char sign;
-};
-
 // Function to insert a new node at the beginning of a linked list
 struct node* insert(struct node* head, int val);
 
