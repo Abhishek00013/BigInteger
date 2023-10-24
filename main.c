@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include "BigInteger.h"
 
 int main() {
     struct BigInteger num0 = initialize("182");
