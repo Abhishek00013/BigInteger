@@ -5,17 +5,14 @@ The functions for addition, subtraction, multiplication, division and modulus of
 
 
 To compile the program, use the following command:
-<pre>
 ```
 gcc BigInteger.c main.c -o program -lm
-```
-</pre>
+
 
 and then:
-<pre>
+```
 ```
 ' ./program '
-```
-</pre>
 
+```
 
