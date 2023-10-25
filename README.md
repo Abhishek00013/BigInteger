@@ -10,7 +10,9 @@ gcc BigInteger.c main.c -o program -lm
 
 
 ```
+
 and then:
+
 ```
 ' ./program '
 
