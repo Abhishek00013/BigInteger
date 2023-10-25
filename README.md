@@ -6,8 +6,9 @@ The functions for addition, subtraction, multiplication, division and modulus of
 
 To compile the program, use the following command:
 
-''' gcc BigInteger.c main.c -o program '''
+'gcc BigInteger.c main.c -o program'
+
 and then:
-''' ./program '''
+' ./program '
 
 
