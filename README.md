@@ -9,8 +9,8 @@ To compile the program, use the following command:
 gcc BigInteger.c main.c -o program -lm
 
 
-and then:
 ```
+and then:
 ```
 ' ./program '
 
