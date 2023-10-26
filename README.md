@@ -10,14 +10,11 @@ Make sure that all the files are in the same directory.
 To compile the program, use the following command in the terminal:
 ```
 gcc BigInteger.c main.c -o program 
-
-
 ```
 
 and then:
 
 ```
 ./program 
-
 ```
 
