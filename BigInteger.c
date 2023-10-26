@@ -8,7 +8,7 @@ struct node *insert(struct node *head, int val) {
   // Allocate memory for a new node
   struct node *temp = (struct node *)malloc(sizeof(struct node));
   if (!temp) {
-    printf("Memory Not Allocated!");
+    printf("Memory Not Allocated!\n");
     exit(1);
   }
   temp->data = val;
@@ -80,8 +80,16 @@ struct BigInteger initialize(char *s) {
     i = 1;
   else
     i = 0;
-  for (i; s[i] != '\0'; i++) {
-    b.head = insert(b.head, s[i] - '0'); // Convert char to int
+  int flag = 0;
+  while (s[i] == '0' && s[i] != '\0')
+    i++;
+  for (int j = i; s[j] != '\0'; j++) {
+    b.head = insert(b.head, s[j] - '0'); // Convert char to int
+    flag = 1;
+  }
+  if (flag == 0) {
+    b.head = insert(b.head, 0);
+    b.sign = '+'; // Handle the special case where it's just "0"
   }
   b.length = length(b.head);
   return b;
@@ -99,6 +107,7 @@ struct node *reverse(struct node *head) {
   return back;
 }
 
+// Function to compare absolute values of BigIntegers
 int compare(struct BigInteger num1, struct BigInteger num2) {
   if (num2.length > num1.length) {
     return -1; // Changed this to -1 for num2 greater
@@ -109,10 +118,10 @@ int compare(struct BigInteger num1, struct BigInteger num2) {
     struct node *head1 = num1.head, *head2 = num2.head;
     while (head1 != NULL && head2 != NULL) {
       if (head2->data > head1->data) {
-        return_val = -1; // Changed this to -1 for num2 greater
+        return_val = -1; // -1 for num2 greater
         break;
-      } else if (head1->data > head2->data) { // Changed this condition to >
-        return_val = 1; // Changed this to 1 for num1 greater
+      } else if (head1->data > head2->data) { 
+        return_val = 1; //  1 for num1 greater
         break;
       }
       head1 = head1->next;
@@ -122,7 +131,7 @@ int compare(struct BigInteger num1, struct BigInteger num2) {
     num2.head = reverse(num2.head);
     return return_val;
   }
-  return 1; // Changed this to 1 for num1 greater
+  return 1; // 1 for num1 greater
 }
 
 // Function to perform addition of two BigIntegers
@@ -162,6 +171,14 @@ struct BigInteger add(struct BigInteger num1, struct BigInteger num2) {
     if (l2 != NULL)
       l2 = l2->next;
   }
+  // Remove trailing zeros
+  num3.head = reverse(num3.head);
+  while (num3.head != NULL && num3.head->data == 0) {
+    struct node *temp = num3.head;
+    num3.head = num3.head->next;
+    free(temp);
+  }
+  num3.head = reverse(num3.head);
   num3.length = length(num3.head);
   return num3;
 }
@@ -192,6 +209,7 @@ struct BigInteger sub(struct BigInteger num1, struct BigInteger num2) {
     num1.sign = '-';
     return num3;
   } else if (compare(num1, num2) == -1) {
+    num3.sign = '-'; 
     struct BigInteger temp = num1;
     num1 = num2;
     num2 = temp;
@@ -220,8 +238,8 @@ struct BigInteger sub(struct BigInteger num1, struct BigInteger num2) {
     if (l2 != NULL)
       l2 = l2->next;
   }
-  num3.head = reverse(num3.head);
   // Remove trailing zeros
+  num3.head = reverse(num3.head);
   while (num3.head != NULL && num3.head->data == 0) {
     struct node *temp = num3.head;
     num3.head = num3.head->next;
@@ -274,6 +292,15 @@ struct BigInteger mul(struct BigInteger num1, struct BigInteger num2) {
   if (num1.sign != num2.sign) {
     result.sign = '-';
   }
+  // Remove trailing zeros
+  result.head = reverse(result.head);
+  while (result.head != NULL && result.head->data == 0) {
+    struct node *temp = result.head;
+    result.head = result.head->next;
+    free(temp);
+  }
+  result.head = reverse(result.head);
+  result.length = length(result.head);
   return result;
 }
 
@@ -284,7 +311,7 @@ struct BigInteger div1(struct BigInteger num1, struct BigInteger num2) {
   char sig = '+';
   int flag = 0;
   if (num2.length == 1 && num2.head->data == 0) {
-    printf("Error division by zero");
+    printf("Error division by zero\n");
     return num3;
   }
   if (num1.sign != num2.sign)
@@ -299,7 +326,6 @@ struct BigInteger div1(struct BigInteger num1, struct BigInteger num2) {
     num3 = add(num3, initialize("1"));
     flag = 1;
   }
-  struct BigInteger zero = initialize("0");
   if (flag)
     num3.sign = sig;
   num1.sign = t1;
@@ -314,7 +340,7 @@ struct BigInteger mod(struct BigInteger num1, struct BigInteger num2) {
   char sig = '+';
   int flag = 0;
   if (num2.length == 1 && num2.head->data == 0) {
-    printf("Error division by zero");
+    printf("Error division by zero\n");
     return num3;
   }
   if (num1.sign != num2.sign)
