@@ -5,7 +5,7 @@
 #include <string.h>
 
 int main() {
-  struct BigInteger num0 = initialize("182");
+  struct BigInteger num0 = initialize("170");
   struct BigInteger num01 = initialize("13");
 
   struct BigInteger sum0 = add(num0, num01);
